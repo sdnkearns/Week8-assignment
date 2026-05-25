@@ -1,4 +1,11 @@
 # =============================================================================
+# Timing wrapper -- measures wall time for each major section
+# =============================================================================
+proc_fmt <- function(pt) sprintf("%.3f s", pt["elapsed"])
+
+total_start <- proc.time()
+
+# =============================================================================
 # Bootstrap and Simulation-Based Inference Across Distribution Shapes
 # =============================================================================
 # Extends the jump-start bootstrap example to cover three distribution shapes:
@@ -319,3 +326,16 @@ for (i in seq_len(nrow(all_results))) {
 }
 
 cat(sprintf("\n----- Run Complete -----\n\n"))
+
+# =============================================================================
+# Timing results -- appended after the original code completes
+# =============================================================================
+total_elapsed <- proc.time() - total_start
+
+cat(sprintf("====================================================\n"))
+cat(sprintf(" Timing Summary\n"))
+cat(sprintf("====================================================\n"))
+cat(sprintf(" Total wall time : %s\n", proc_fmt(total_elapsed)))
+cat(sprintf(" User CPU time   : %.3f s\n", total_elapsed["user.self"]))
+cat(sprintf(" System CPU time : %.3f s\n", total_elapsed["sys.self"]))
+cat(sprintf("====================================================\n\n"))
