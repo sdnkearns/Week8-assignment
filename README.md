@@ -35,10 +35,11 @@ Go has an additional benefit over R in that it is designed to be run as a servic
 
 For the cost comparison, I am using AWS t3.medium, which has an on-demand hourly rate of $0.0416, 2 vCPUs, 4 GiB memory, EBS storage, and up to 5 Gigabit network performance
 
-table           |     R     |    Go     |  
-Job Wall Time   |  76.680 s | 13.3127 s |  
-Wall Time (hrs) | 0.0213 hr | 0.00337 hr|  
-Compute Cost/hr | $0.00089  | $0.00015  |  
+|                | R          | Go          |
+|----------------|------------|-------------|
+| Job Wall Time  | 76.680 s   | 13.3127 s   |
+| Wall Time (hrs)| 0.0213 hr  | 0.00337 hr  |
+| Compute Cost/hr| $0.00089   | $0.00015    |
 
 The cost to perform the same bootstrapping calculation on the same AWS service is ~83% cheaper using Go instead of R
 
