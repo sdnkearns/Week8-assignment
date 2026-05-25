@@ -1,0 +1,351 @@
+I need R code to run a basic bootstrap and simulation-based inference on distributions of various shapes (positively skewed, symmetric, and negatively skewed). This is the example jump-start code
+
+# example of bootstrap sampling and estimation of standard errors
+
+# revised May 23, 2024 by Thomas W. Miller
+
+# estimating standard error of the median,
+# providing comparisons with the standard error of the mean
+
+# the standard error is the standard deviation
+# of the sampling distribution
+
+# comparing standard error estimates in this program
+# assumes a normal population distribution using rnorm() 
+
+# of course, one of the advantages of bootstrap
+# estimation of standard errors is that it may be
+# used for any population distribution
+
+# bootstrap sampling is sampling with replacement
+# which can be accomplished with the R sample() function
+
+# larger numbers of bootstrap samples B 
+# will yield better estimates of the true standard errors
+# vary B by using separate executions of this program
+B = 100
+cat("\nRunning study with",B,"bootstrap samples\n")
+
+ROUTE_OUTPUT_TO_LISTING = FALSE
+if (ROUTE_OUTPUT_TO_LISTING) {
+    listing_file_name = paste("listing-from-",as.character(B),"-run-bootstrap-median.txt",sep="")
+    cat("\nStudy results will be provided in:",listing_file_name,"\n")
+    sink(listing_file_name)
+}
+
+# set up a data frame for saving study results
+studyResults = NULL
+
+# set the mean and standard deviation of the normal distribution
+popMean = 100
+popSD = 10
+studySampleSizes = c(25,100,225,400)
+
+cat("\nStudy conditions:")
+cat("\n  Population mean:",popMean,"SD:",popSD,"\n")
+
+# the Central Limit Theorem states that the standard
+# error of the mean should be equal to the population
+# standard deviation divided by the square-root 
+# of the sample size
+
+set.seed(9999) # for reproducible results for each study
+# set inside the for-loop so larger n values build on same base as smaller values
+for (iteration in 1:100) {
+    # vary the sample size N
+    for (nindex in seq(along=studySampleSizes)) {
+        n = studySampleSizes[nindex]
+        thisSample = rnorm(n, mean = popMean, sd = popSD)
+        thisSampleMean = mean(thisSample)
+        bootstrapSampleResults = NULL
+        for (b in 1:B) {
+            thisBootstrapSample = sample(thisSample, n, replace=TRUE)
+            thisBootstrapMean = mean(thisBootstrapSample)
+            thisBootstrapMedian = median(thisBootstrapSample)
+            thisBootstrapSampleResults = data.frame(bootMean=thisBootstrapMean, bootMedian=thisBootstrapMedian)
+            bootstrapSampleResults = rbind(thisBootstrapSampleResults,bootstrapSampleResults)
+        }
+        bootMean = mean(bootstrapSampleResults$bootMean)
+        bootMedian = mean(bootstrapSampleResults$bootMedian)
+    
+        thisIterationResults=data.frame(n,
+                                        sampleMean = thisSampleMean,
+                                        bootMean,
+                                        bootMedian) 
+
+        studyResults=rbind(studyResults, thisIterationResults)       
+    }
+}
+
+# bootstrap-estimated standard errors for each sample size n
+cat("\nEstimated standard errors using ",B," bootstrap samples\n",sep="")
+for (nindex in seq(along=studySampleSizes)) {
+    n = studySampleSizes[nindex]
+    nStudyResults = studyResults[(studyResults$n == n),]
+    cat("\nSamples of size n =",n)
+    cat("\n  SE Mean from Central Limit Theorem:", round(popSD/sqrt(n),digits=2))
+    cat("\n  SE Mean from Samples:",round(sd(nStudyResults$sampleMean),digits=2))
+    cat("\n  SE Mean from Bootstrap Samples:",round(sd(nStudyResults$bootMean),digits=2))
+    cat("\n  SE Median from Bootstrap Samples:",round(sd(nStudyResults$bootMedian),digits=2))
+    cat("\n")
+}
+
+if (ROUTE_OUTPUT_TO_LISTING)
+    sink()
+
+cat("\n----- Run Complete -----\n")
+Show more
+9:32 PM
+
+Read the frontend design skill
+Read the frontend design skill
+Here's a comprehensive R script that extends your jump-start code to handle positively skewed, symmetric, and negatively skewed distributions, with simulation-based inference throughout.
+
+
+Bootstrap and simulation-based inference across distribution shapes
+Bootstrap and simulation-based inference across distribution shapes
+
+Bootstrap and simulation-based inference across distribution shapes
+bootstrap_inference_distributions.R
+Done
+how would I refactor this code into go, including benchmarking, software profiling, and logging. The random number generator used should also be the Mersenne Twister algorithm (https://github.com/seehuhn/mt19937)
+
+9:50 PM
+Let me fetch that library to understand its API before writing any code.
+
+
+Fetched: GitHub - seehuhn/mt19937: An implementation of Takuji Nishimura's and Makoto Matsumoto's Mersenne Twister pseudo random number generator in Go.
+Fetched: GitHub - seehuhn/mt19937: An implementation of Takuji Nishimura's and Makoto Matsumoto's Mersenne Twister pseudo random number generator in Go.
+Good. The library implements rand.Source and is used as rand.New(mt19937.New()). Now I have everything needed to write the full Go project.
+
+
+Ran 7 commands, created a file
+Ran 7 commands, created a file
+Good. Now I have a complete picture of the API. I'll vendor the library and write all the Go source files.
+
+
+Ran 2 commands
+Ran 2 commands
+Now let's write all the source files:
+
+
+Created 6 files
+Created 6 files
+Now write the benchmark and test files:
+
+
+Created 4 files
+Created 4 files
+Now write the README and a Makefile, then verify it compiles:
+
+
+Ran 5 commands, created a file
+Ran 5 commands, created a file
+Everything compiles, all tests pass, benchmarks run, and the simulation produces clean output. Now bundle the files for output:
+
+
+Ran 2 commands, read a file
+Ran 2 commands, read a file
+Here's a full tour of the refactored project.
+
+Project layout
+bootstrap_sim/
+├── cmd/bootstrap/main.go              # entry point + CLI flags
+├── internal/
+│   ├── distrib/distrib.go             # distribution generators
+│   │             distrib_test.go
+│   ├── stats/stats.go                 # mean, median, SD, quantile
+│   │         stats_test.go
+│   ├── bootstrap/bootstrap.go         # resampling + SE + CI
+│   │             bootstrap_test.go
+│   ├── permtest/permtest.go           # permutation test
+│   │            permtest_test.go
+│   └── logging/logging.go             # levelled slog wrapper
+├── vendor/github.com/seehuhn/mt19937/ # vendored MT19937
+├── go.mod / go.sum
+└── Makefile
+MT19937 integration
+go
+mt  := mt19937.New()
+mt.Seed(*fSeed)          // implements rand.Source
+rng := rand.New(mt)      // pass rng everywhere — no global state
+The *rand.Rand is threaded through every package so all randomness is reproducible and there is no hidden global state.
+
+Benchmarking (go test -bench)
+Benchmarks live alongside the code they measure. Run them with:
+
+bash
+make bench                        # all packages, 1 s each
+make bench-bootstrap              # only bootstrap package
+go test -mod=vendor -bench=BenchmarkBootstrap_n400_B500 -benchmem ./internal/bootstrap/
+The live numbers from this run:
+
+Benchmark	time/op	allocs/op
+Bootstrap n=25, B=500	645 µs	503
+Bootstrap n=100, B=500	3.2 ms	503
+Bootstrap n=400, B=500	13.9 ms	503
+PermTest n=50, reps=500	742 µs	2
+Mean n=1000	318 ns	0
+Median n=1000	21 µs	1
+CPU & memory profiling
+bash
+# Capture and open interactively
+make profile-cpu
+make profile-mem
+
+# Capture both non-interactively, then inspect
+make profile-both
+go tool pprof cpu.prof          # top, list, web commands
+go tool pprof -alloc_space mem.prof
+
+# Generate a flame-graph SVG
+make svg-cpu                    # writes cpu_profile.svg
+You can also pass flags directly:
+
+bash
+./bootstrap -B 500 -iter 200 -cpuprofile cpu.prof -memprofile mem.prof
+Structured logging
+The logging package wraps log/slog. Every cell completion, distribution start, and permutation test summary is logged with key-value pairs:
+
+bash
+./bootstrap                  # plain text (default)
+./bootstrap -json            # JSON — pipe to jq, grep, etc.
+./bootstrap -debug           # adds per-iteration rows + source locations
+Example JSON line:
+
+json
+{"time":"...","level":"INFO","msg":"cell complete","dist":"Symmetric (Normal)","n":100,"cltSE":1,"avgBootSEMean":0.995,"ciMeanCoverage":0.95}
+CLI flags
+Flag	Default	Description
+-B	500	Bootstrap resamples per sample
+-iter	200	Simulation iterations per cell
+-permReps	1000	Permutation test replicates
+-seed	42	MT19937 seed
+-ci	0.95	CI confidence level
+-json	false	JSON log format
+-debug	false	Debug-level logging
+-cpuprofile	—	Write CPU profile to file
+-memprofile	—	Write memory profile to file
+
+Bootstrap sim.tar
+GZ 
+
+Main
+Code · GO 
+
+Bootstrap
+Code · GO 
+
+Distrib
+Code · GO 
+
+Stats
+Code · GO 
+
+Permtest
+Code · GO 
+
+Logging
+Code · GO 
+
+Makefile
+ 
+
+can you give me a general overview of how each part of this code works
+
+10:18 PM
+Sure. Here's a top-down walkthrough of the whole project.
+
+The big picture
+The program asks: "How well does bootstrap resampling estimate standard errors and confidence intervals, across distributions of different shapes?" It answers by running a simulation — drawing thousands of samples, bootstrapping each one, and recording how accurate the estimates are.
+
+internal/stats — the math primitives
+This is the foundation everything else builds on. It provides four simple statistical functions:
+
+Mean — sums all values and divides by n
+Median — sorts the slice, then picks the middle value (or averages the two middle values for even n)
+Variance / StdDev — sample variance using Bessel's correction (divides by n−1, not n), which gives an unbiased estimate
+Quantile — given a sorted slice, returns the value at a given percentile using linear interpolation; this is used to cut the tails off bootstrap distributions to form confidence intervals
+Nothing in here knows about bootstrapping or distributions — it's purely arithmetic.
+
+internal/distrib — distribution generators
+This package creates random samples from three distribution shapes, all carefully tuned to share the same theoretical mean (100) and standard deviation (10) so comparisons between shapes are fair:
+
+Symmetric — plain rnorm, draws from a normal distribution directly
+Positively skewed — log-normal; the key insight is that if you exponentiate a normal draw you get a right-skewed result. The DeriveLogNormal function works backwards from the target mean/SD to find the correct meanlog and sdlog parameters
+Negatively skewed — reflects the log-normal by computing (2 × mean) − X, which flips the long tail to the left side while keeping the mean and SD identical
+Every generator accepts a *rand.Rand backed by the MT19937 source, so the caller fully controls the random seed.
+
+vendor/github.com/seehuhn/mt19937 — the random number generator
+Rather than using Go's default PRNG, the project uses the Mersenne Twister (MT19937-64). This is the same algorithm R uses internally, which makes results more directly comparable to the original R code.
+
+The key API is simple:
+
+go
+mt  := mt19937.New()   // allocate
+mt.Seed(42)            // seed it
+rng := rand.New(mt)    // wrap in standard rand.Rand
+After that, rng behaves like any normal *rand.Rand — calling .NormFloat64(), .Intn(), etc. — but the underlying numbers come from MT19937 instead of Go's built-in generator.
+
+internal/bootstrap — the core resampling engine
+This is the heart of the project. Run(x, B, alpha, rng) does the following for a single observed sample x:
+
+Resample — draws B bootstrap samples from x with replacement using rng.Intn(n) to pick random indices
+Compute statistics — for each bootstrap sample, records the mean and median
+Estimate standard errors — takes the standard deviation of all B bootstrap means (and medians); this is the bootstrap SE
+Build confidence intervals — sorts all B bootstrap means, then cuts at the alpha/2 and 1−alpha/2 percentiles; this is the percentile bootstrap CI
+The key idea: the spread of bootstrap statistics across resamples approximates the spread you'd see if you could actually repeat the original study many times.
+
+internal/permtest — simulation-based hypothesis testing
+Implements a permutation test to ask: "Could two samples have come from the same distribution?"
+
+The logic:
+
+Compute the observed difference in means between group X and group Y
+Pool all observations together, then randomly shuffle and re-split into two groups of the original sizes — repeat this reps times
+Count how often the shuffled difference is at least as extreme as the observed one
+That proportion is the two-sided p-value
+Because the two distributions (positive-skew and negative-skew) are constructed to have the same mean, H₀ is actually true, so the rejection rate should hover near alpha (5%). This verifies the test is calibrated correctly.
+
+internal/logging — structured logging
+A thin wrapper around Go's standard log/slog package. It adds:
+
+Level control — Debug, Info, Warn, Error; debug mode also prints the source file and line number
+Format switching — plain text (default) or JSON (useful for piping to jq or log aggregators)
+Convenience functions — logging.Info(...), logging.Debug(...) etc. so other packages don't need to import slog directly
+Every significant event in the simulation — cell completion, distribution start, permutation test result — is logged with structured key-value pairs like n=100, avgBootSEMean=0.995, elapsed=117ms.
+
+cmd/bootstrap/main.go — the study loop
+This is where everything connects. The flow is:
+
+parse flags → init logger → start CPU profiler (optional)
+    │
+    └─ for each distribution shape (pos-skew, symmetric, neg-skew):
+           └─ for each sample size n in [25, 100, 225, 400]:
+                  └─ repeat N_ITER times:
+                         draw sample → bootstrap it → record SE and CI hit/miss
+                  → average results across iterations → print and log
+    │
+    └─ permutation tests (pos-skew vs neg-skew, n=25 and n=100)
+    │
+    └─ print summary tables
+    └─ write memory profile (optional)
+The outer loop (iterations) is what turns this from a single estimate into a simulation — by repeating the whole process 200 times per cell and averaging, you get stable estimates of how bootstrap performs on average, not just for one lucky or unlucky sample.
+
+The summary tables at the end compare four SE estimates side by side:
+
+CLT SE — the theoretical σ/√n, only valid for the mean of a normal distribution
+Simulation SE — the true empirical SE, computed as the SD of sample means across all iterations
+Bootstrap SE — what the bootstrap estimated on average
+Median SE — bootstrap SE for the median, which has no simple closed-form equivalent to the CLT
+Makefile — developer workflow
+Wraps all the common commands so you don't have to remember flags:
+
+Command	What it does
+make build	Compiles the binary
+make run	Builds and runs with default settings
+make test	Runs all unit tests
+make bench	Runs all benchmarks with memory stats
+make profile-cpu	Runs the simulation and opens the pprof CPU profile interactively
+make profile-mem	Same for heap allocations
+make svg-cpu	Renders the CPU profile as a flame-graph SVG

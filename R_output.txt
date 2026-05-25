@@ -1,0 +1,200 @@
+════════════════════════════════════════════════════════════
+  Bootstrap & Simulation-Based Inference Study (Go)
+════════════════════════════════════════════════════════════
+  Bootstrap resamples  B   : 500
+  Simulation iterations   : 200
+  Sample sizes            : [25 100 225 400]
+  CI level                : 95%
+  Permutation replicates  : 1000
+  MT19937 seed            : 42
+
+──────────────────────────────────────────────────────────
+  Distribution: Positively Skewed (Log-Normal)
+──────────────────────────────────────────────────────────
+time=2026-05-24T22:16:10.085-05:00 level=INFO msg="Starting distribution" distribution="Positively Skewed (Log-Normal)"
+time=2026-05-24T22:16:10.192-05:00 level=INFO msg="cell complete" dist="Positively Skewed (Log-Normal)" n=25 cltSE=2 simSE=1.947389362183867 avgBootSEMean=1.9553448918426708 avgBootSEMed=2.6430396105555456 ciMeanCoverage=0.935 ciMedCoverage=0.96 elapsed=107.144ms
+
+  n = 25
+    CLT SE (mean)               : 2.000
+    Simulation SE (mean)         : 1.947
+    Avg bootstrap SE (mean)      : 1.955
+    Avg bootstrap SE (median)    : 2.643
+    Bootstrap CI coverage (mean)  : 93.5%
+    Bootstrap CI coverage (median): 96.0%
+    Wall time                    : 107ms
+time=2026-05-24T22:16:10.688-05:00 level=INFO msg="cell complete" dist="Positively Skewed (Log-Normal)" n=100 cltSE=1 simSE=1.0720653461178724 avgBootSEMean=0.9859394009962386 avgBootSEMed=1.2511240364010514 ciMeanCoverage=0.91 ciMedCoverage=0.92 elapsed=496.0924ms
+
+  n = 100
+    CLT SE (mean)               : 1.000
+    Simulation SE (mean)         : 1.072
+    Avg bootstrap SE (mean)      : 0.986
+    Avg bootstrap SE (median)    : 1.251
+    Bootstrap CI coverage (mean)  : 91.0%
+    Bootstrap CI coverage (median): 92.0%
+    Wall time                    : 496ms
+time=2026-05-24T22:16:11.931-05:00 level=INFO msg="cell complete" dist="Positively Skewed (Log-Normal)" n=225 cltSE=0.6666666666666666 simSE=0.7180157772349522 avgBootSEMean=0.6630450303827589 avgBootSEMed=0.8473981560762929 ciMeanCoverage=0.915 ciMedCoverage=0.9 elapsed=1.2428422s
+
+  n = 225
+    CLT SE (mean)               : 0.667
+    Simulation SE (mean)         : 0.718
+    Avg bootstrap SE (mean)      : 0.663
+    Avg bootstrap SE (median)    : 0.847
+    Bootstrap CI coverage (mean)  : 91.5%
+    Bootstrap CI coverage (median): 90.0%
+    Wall time                    : 1.243s
+time=2026-05-24T22:16:14.285-05:00 level=INFO msg="cell complete" dist="Positively Skewed (Log-Normal)" n=400 cltSE=0.5 simSE=0.5169374744810289 avgBootSEMean=0.49603396826412066 avgBootSEMed=0.6273190836455608 ciMeanCoverage=0.94 ciMedCoverage=0.855 elapsed=2.3543047s
+
+  n = 400
+    CLT SE (mean)               : 0.500
+    Simulation SE (mean)         : 0.517
+    Avg bootstrap SE (mean)      : 0.496
+    Avg bootstrap SE (median)    : 0.627
+    Bootstrap CI coverage (mean)  : 94.0%
+    Bootstrap CI coverage (median): 85.5%
+    Wall time                    : 2.354s
+
+──────────────────────────────────────────────────────────
+  Distribution: Symmetric (Normal)
+──────────────────────────────────────────────────────────
+time=2026-05-24T22:16:14.287-05:00 level=INFO msg="Starting distribution" distribution="Symmetric (Normal)"
+time=2026-05-24T22:16:14.392-05:00 level=INFO msg="cell complete" dist="Symmetric (Normal)" n=25 cltSE=2 simSE=1.9840443847798805 avgBootSEMean=1.9554038240931615 avgBootSEMed=2.6185422095482425 ciMeanCoverage=0.955 ciMedCoverage=0.94 elapsed=105.07ms
+
+  n = 25
+    CLT SE (mean)               : 2.000
+    Simulation SE (mean)         : 1.984
+    Avg bootstrap SE (mean)      : 1.955
+    Avg bootstrap SE (median)    : 2.619
+    Bootstrap CI coverage (mean)  : 95.5%
+    Bootstrap CI coverage (median): 94.0%
+    Wall time                    : 105ms
+time=2026-05-24T22:16:14.904-05:00 level=INFO msg="cell complete" dist="Symmetric (Normal)" n=100 cltSE=1 simSE=0.9436656901891823 avgBootSEMean=0.9866186408131443 avgBootSEMed=1.2400238090186584 ciMeanCoverage=0.955 ciMedCoverage=0.975 elapsed=512.4141ms
+
+  n = 100
+    CLT SE (mean)               : 1.000
+    Simulation SE (mean)         : 0.944
+    Avg bootstrap SE (mean)      : 0.987
+    Avg bootstrap SE (median)    : 1.240
+    Bootstrap CI coverage (mean)  : 95.5%
+    Bootstrap CI coverage (median): 97.5%
+    Wall time                    : 512ms
+time=2026-05-24T22:16:16.141-05:00 level=INFO msg="cell complete" dist="Symmetric (Normal)" n=225 cltSE=0.6666666666666666 simSE=0.7053950219208431 avgBootSEMean=0.662953293622515 avgBootSEMed=0.8451972105179424 ciMeanCoverage=0.935 ciMedCoverage=0.92 elapsed=1.2365009s
+
+  n = 225
+    CLT SE (mean)               : 0.667
+    Simulation SE (mean)         : 0.705
+    Avg bootstrap SE (mean)      : 0.663
+    Avg bootstrap SE (median)    : 0.845
+    Bootstrap CI coverage (mean)  : 93.5%
+    Bootstrap CI coverage (median): 92.0%
+    Wall time                    : 1.237s
+time=2026-05-24T22:16:18.493-05:00 level=INFO msg="cell complete" dist="Symmetric (Normal)" n=400 cltSE=0.5 simSE=0.4704780455846894 avgBootSEMean=0.49873078884411015 avgBootSEMed=0.6370279377437266 ciMeanCoverage=0.95 ciMedCoverage=0.97 elapsed=2.3518015s
+
+  n = 400
+    CLT SE (mean)               : 0.500
+    Simulation SE (mean)         : 0.470
+    Avg bootstrap SE (mean)      : 0.499
+    Avg bootstrap SE (median)    : 0.637
+    Bootstrap CI coverage (mean)  : 95.0%
+    Bootstrap CI coverage (median): 97.0%
+    Wall time                    : 2.352s
+
+──────────────────────────────────────────────────────────
+  Distribution: Negatively Skewed (Reflected Log-Normal)
+──────────────────────────────────────────────────────────
+time=2026-05-24T22:16:18.494-05:00 level=INFO msg="Starting distribution" distribution="Negatively Skewed (Reflected Log-Normal)"
+time=2026-05-24T22:16:18.602-05:00 level=INFO msg="cell complete" dist="Negatively Skewed (Reflected Log-Normal)" n=25 cltSE=2 simSE=2.0044144213807575 avgBootSEMean=1.9500338985725512 avgBootSEMed=2.6316918664850135 ciMeanCoverage=0.92 ciMedCoverage=0.925 elapsed=107.5418ms
+
+  n = 25
+    CLT SE (mean)               : 2.000
+    Simulation SE (mean)         : 2.004
+    Avg bootstrap SE (mean)      : 1.950
+    Avg bootstrap SE (median)    : 2.632
+    Bootstrap CI coverage (mean)  : 92.0%
+    Bootstrap CI coverage (median): 92.5%
+    Wall time                    : 108ms
+time=2026-05-24T22:16:19.104-05:00 level=INFO msg="cell complete" dist="Negatively Skewed (Reflected Log-Normal)" n=100 cltSE=1 simSE=0.9822528282966767 avgBootSEMean=0.993657555781392 avgBootSEMed=1.2721701998385226 ciMeanCoverage=0.95 ciMedCoverage=0.945 elapsed=502.1159ms
+
+  n = 100
+    CLT SE (mean)               : 1.000
+    Simulation SE (mean)         : 0.982
+    Avg bootstrap SE (mean)      : 0.994
+    Avg bootstrap SE (median)    : 1.272
+    Bootstrap CI coverage (mean)  : 95.0%
+    Bootstrap CI coverage (median): 94.5%
+    Wall time                    : 502ms
+time=2026-05-24T22:16:20.333-05:00 level=INFO msg="cell complete" dist="Negatively Skewed (Reflected Log-Normal)" n=225 cltSE=0.6666666666666666 simSE=0.736538350980776 avgBootSEMean=0.6659491796971119 avgBootSEMed=0.8489878451055225 ciMeanCoverage=0.91 ciMedCoverage=0.87 elapsed=1.2291434s
+
+  n = 225
+    CLT SE (mean)               : 0.667
+    Simulation SE (mean)         : 0.737
+    Avg bootstrap SE (mean)      : 0.666
+    Avg bootstrap SE (median)    : 0.849
+    Bootstrap CI coverage (mean)  : 91.0%
+    Bootstrap CI coverage (median): 87.0%
+    Wall time                    : 1.229s
+time=2026-05-24T22:16:22.669-05:00 level=INFO msg="cell complete" dist="Negatively Skewed (Reflected Log-Normal)" n=400 cltSE=0.5 simSE=0.5350666430777427 avgBootSEMean=0.5003913645318169 avgBootSEMed=0.6333189914427855 ciMeanCoverage=0.935 ciMedCoverage=0.85 elapsed=2.3336561s
+
+  n = 400
+    CLT SE (mean)               : 0.500
+    Simulation SE (mean)         : 0.535
+    Avg bootstrap SE (mean)      : 0.500
+    Avg bootstrap SE (median)    : 0.633
+    Bootstrap CI coverage (mean)  : 93.5%
+    Bootstrap CI coverage (median): 85.0%
+    Wall time                    : 2.334s
+
+════════════════════════════════════════════════════════════
+  Simulation-Based Permutation Tests
+  H₀: PosSkewed mean == NegSkewed mean  (true by construction)
+  Expected rejection rate ≈ 5% under H₀
+════════════════════════════════════════════════════════════
+
+  n =  25  |  Rejection rate: 6.0%  (expected ≈ 5% under H₀)
+time=2026-05-24T22:16:22.808-05:00 level=INFO msg="permutation test summary" n=25 rejectionRate=0.06 alpha=0.050000000000000044
+
+  n = 100  |  Rejection rate: 6.0%  (expected ≈ 5% under H₀)
+time=2026-05-24T22:16:23.378-05:00 level=INFO msg="permutation test summary" n=100 rejectionRate=0.06 alpha=0.050000000000000044
+
+  Illustrative single test (n=400):
+    Observed diff in means : 0.251
+    Two-sided p-value       : 0.7400
+
+════════════════════════════════════════════════════════════
+  Summary: SE Estimates Across Shapes and Sample Sizes
+════════════════════════════════════════════════════════════
+Distribution                              n     CLT_SE  Sim_SE  Boot_SE  Med_SE
+────────────────────────────────────────  ────  ──────  ──────  ───────  ──────
+Positively Skewed (Log-Normal)            25    2.000   1.947   1.955    2.643
+Positively Skewed (Log-Normal)            100   1.000   1.072   0.986    1.251
+Positively Skewed (Log-Normal)            225   0.667   0.718   0.663    0.847
+Positively Skewed (Log-Normal)            400   0.500   0.517   0.496    0.627
+Symmetric (Normal)                        25    2.000   1.984   1.955    2.619
+Symmetric (Normal)                        100   1.000   0.944   0.987    1.240
+Symmetric (Normal)                        225   0.667   0.705   0.663    0.845
+Symmetric (Normal)                        400   0.500   0.470   0.499    0.637
+Negatively Skewed (Reflected Log-Normal)  25    2.000   2.004   1.950    2.632
+Negatively Skewed (Reflected Log-Normal)  100   1.000   0.982   0.994    1.272
+Negatively Skewed (Reflected Log-Normal)  225   0.667   0.737   0.666    0.849
+Negatively Skewed (Reflected Log-Normal)  400   0.500   0.535   0.500    0.633
+
+  Bootstrap CI Coverage (target: 95%)
+════════════════════════════════════════════════════════════
+Distribution                              n     Mean CI%  Median CI%
+────────────────────────────────────────  ────  ────────  ──────────
+Positively Skewed (Log-Normal)            25    93.5%     96.0%
+Positively Skewed (Log-Normal)            100   91.0%     92.0%
+Positively Skewed (Log-Normal)            225   91.5%     90.0%
+Positively Skewed (Log-Normal)            400   94.0%     85.5%
+Symmetric (Normal)                        25    95.5%     94.0%
+Symmetric (Normal)                        100   95.5%     97.5%
+Symmetric (Normal)                        225   93.5%     92.0%
+Symmetric (Normal)                        400   95.0%     97.0%
+Negatively Skewed (Reflected Log-Normal)  25    92.0%     92.5%
+Negatively Skewed (Reflected Log-Normal)  100   95.0%     94.5%
+Negatively Skewed (Reflected Log-Normal)  225   91.0%     87.0%
+Negatively Skewed (Reflected Log-Normal)  400   93.5%     85.0%
+
+Total wall time: 13.313s
+time=2026-05-24T22:16:23.398-05:00 level=INFO msg="Study complete" totalElapsed=13.312732s
+
+----- Run Complete -----
